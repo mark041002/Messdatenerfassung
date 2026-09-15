@@ -2,7 +2,7 @@ import nidaqmx
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from nidaqmx.constants import LineGrouping, TerminalConfiguration
-# ── Konfiguration ──────────────────────────────────────────────
+# ----- Konfiguration -----
 AI_CHANNEL  = "Dev1/ai0"
 AO_CHANNEL  = "Dev1/ao0"
 DO_CHANNEL  = "Dev1/port0/line0:2"   # p0.0=ROT, p0.1=GELB, p0.2=GRÜN
@@ -12,14 +12,14 @@ N_SAMPLES   = 200
 UPDATE_MS   = 20
 RSE = TerminalConfiguration.RSE    # RSE = Messung gegen analoge Masse, für bessere Werte
 
-# ── LED-Zustände ───────────────────────────────────────────────
+# ----- LED-Zustände -----
 ROT   = [True,  False, False]
 GELB  = [False, True,  False]
 GRUEN = [False, False, True ]
 ALLE  = [True,  True,  True ]
 AUS   = [False, False, False]
 
-# ── Schwellwerte → LED-Zustand ─────────────────────────────────
+# ----- Schwellwerte → LED-Zustand -----
 def get_led_state(voltage):
     """
     Gibt anhand der gemessenen Spannung den passenden
@@ -29,7 +29,7 @@ def get_led_state(voltage):
     # TODO: eigenen Code hier einfügen
     pass
 
-# ── DAQmx Tasks ───────────────────────────────────────────────
+# ----- DAQmx Tasks -----
 ao_task = nidaqmx.Task()
 ao_task.ao_channels.add_ao_voltage_chan(AO_CHANNEL, min_val=0.0, max_val=10.0)
 ao_task.write(MAX_VOLTAGE)
@@ -44,7 +44,7 @@ do_task.start()
 do_task.write(AUS)
 print("DO p0.0–p0.2 bereit")
 
-# ── Plot ──────────────────────────────────────────────────────
+# ----- Plot -----
 data  = [0.0] * N_SAMPLES
 x_ms  = [i * UPDATE_MS for i in range(N_SAMPLES)]
 fig, ax = plt.subplots(figsize=(12, 8))
@@ -60,7 +60,7 @@ voltage_text = ax.text(
     fontsize=11, va="top", color="blue"
 )
 
-# ── Update-Funktion ───────────────────────────────────────────
+# ----- Update-Funktion -----
 def update(frame):
     value = ai_task.read()
 
