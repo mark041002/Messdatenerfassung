@@ -1,0 +1,19 @@
+LibreOffice
+Nidaqmx Treiber
+Die Praktikumsaufgaben 2-5
+
+Python 3.14 mit Modulen:
+nidaqmx
+matplotlib
+csv
+datetime?
+simple_pid
+numpy
+scipy.io
+
+numpy==2.5.2
+matplotlib==3.11.2
+nidaqmx==1.6.0
+pid==3.0.4
+simple-pid==2.0.1
+scipy==1.18.0

@@ -60,7 +60,7 @@ def berechne_spektrum(signal, abtastrate):
     rfft liefert Werte des Spektrums (an Position 0, 1, 2, 3, …), 
     nicht welche Frequenz in Hz diese Position repräsentiert. 
     Das Ergebnis ist ein Array wie [0, 4, 8] Hz (Beispielwerte), 
-    das du direkt für die x-Achse deines FFT-Plots nutzt.
+    das direkt für die x-Achse des FFT-Plots genutzt wird.
 
     F(i) = (i*abtastrate)/Samples
     Sagt welche Frequenz für das Ergebnis von Spektrum/Amplitude genutzt wird

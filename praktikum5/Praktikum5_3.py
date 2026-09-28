@@ -1,16 +1,11 @@
-import os
-import glob
 import csv
-
 import numpy as np
 from scipy.io import wavfile
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Button, TextBox
 
 # ----- Konfiguration -----
-TON_ORDNER = "ton"
-CSV_EINZEL = "frequenzanalyse.csv"
-CSV_KOMBI = "frequenzanalyse_kombiniert.csv"
+CSV_PFAD = "frequenzanalyse.csv"
 
 STANDARD_XLIM_ZEIT = (0.0, 0.05)
 STANDARD_XLIM_FFT = (0.0, 2050.0)
@@ -134,20 +129,16 @@ def analysieren(event):
             return
 
         abtastrate = abtastrate1
-        n_min = min(len(signal1), len(signal2))
+        n_min = min(len(signal1), len(signal2)) # Beide Signale werden auf die länge des kleineren Gekürzt
         signal = signal1[:n_min] + signal2[:n_min]
-        titel = f"{os.path.basename(datei1)} + {os.path.basename(datei2)} (überlagert)"
-        csv_pfad = CSV_KOMBI
 
     else:
         abtastrate = abtastrate1
         signal = signal1
-        titel = os.path.basename(datei1)
-        csv_pfad = CSV_EINZEL
 
     t = np.arange(len(signal)) / abtastrate
     freq, amplitude = berechne_spektrum(signal, abtastrate)
-    spektrum_exportieren(csv_pfad, freq, amplitude)
+    spektrum_exportieren(CSV_PFAD, freq, amplitude)
 
     # ----- Plots neu zeichnen -----
     ax_zeit.clear()
@@ -164,16 +155,15 @@ def analysieren(event):
     ax_fft.set_ylabel("Amplitude")
     ax_fft.grid(True, alpha=0.3)
 
-    fig.suptitle(f"Frequenzanalyse: {titel}", fontsize=13)
-
-    xlim_anwenden()  # aktuelle Werte aus den Textfeldern übernehmen
-    fig.canvas.draw_idle()
+    xlim_anwenden(None)  # aktuelle Werte aus den Textfeldern übernehmen
+    fig.canvas.draw()
 
 
 def pruefe_wert(wert, fallback):
-    if isinstance(wert, float):
-        return wert
-    return fallback
+    try:
+        return float(wert)
+    except ValueError:
+        return fallback
 
 
 #----- User Eingaben überpüfen und übernehmen -----
@@ -188,7 +178,7 @@ def xlim_anwenden(event):
     if f_min < f_max:
         ax_fft.set_xlim(f_min, f_max)
 
-    fig.canvas.draw_idle()
+    fig.canvas.draw()
 
 
 btn_analyse.on_clicked(analysieren)

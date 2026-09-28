@@ -49,10 +49,8 @@ pid = PID(Kp=KP, Ki=KI, Kd=KD, setpoint=ZIELTEMPERATUR_C,
 # ----- CSV vorbereiten -----
 csv_file   = open(CSV_DATEI, "w", newline="", encoding="utf-8")
 csv_writer = csv.writer(csv_file, delimiter=";")
-csv_writer.writerow(["Zeitstempel","Sensorspannung Druck [V]","Druck [mbar]",
-                     "Temperatur Wasserbad [°C]","Temperatur Kessel [°C]","Zieltemperatur [°C]",
-                     "Fehler Temperatur [°C]","PID-Ausgang [%]","Steuerspannung [V]",
-                     "Kontrollspannung [V]"])
+# TODO: Beschriftung der Spalten hinzufügen, Zeile beginnt mit csv_writer.
+
 
 # ----- DAQmx Tasks -----
 ai_task = nidaqmx.Task()
@@ -238,13 +236,8 @@ def update(frame):
     ao_task.write(u_steuer)
 
     # Messwerte in CSV schreiben
-    jetzt = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
-    csv_writer.writerow([jetzt, f"{u_druck:.6f}", f"{druck_mbar:.4f}",
-                         f"{wasserbad_c:.4f}", f"{braukessel_c:.4f}",
-                         f"{pid.setpoint:.4f}", f"{fehler_temp:.4f}",
-                         f"{stellgroesse_pct:.2f}", f"{u_steuer:.4f}",
-                         f"{u_kontroll:.4f}"])
-    csv_file.flush()
+    # TODO: Schreiben sie anhand der Aufgabenstellung und mit Hilfe der letzten Aufgaben die Messdaten in eine CSV-Datei
+    # Der Befehl beginnt mit csv_writer.
 
     bar_druck[0].set_height(druck_mbar)
     label_druck.set_position((bar_druck[0].get_x() + bar_druck[0].get_width() / 2, druck_mbar))
