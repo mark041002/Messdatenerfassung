@@ -1,21 +1,3 @@
-"""Der Hauptunterschied liegt darin, wie Daten empfangen und angezeigt werden:
-Ein Waveform Chart (Diagramm) fügt neue Messwerte fortlaufend an eine bestehende Historie an
-Waveform Chart: Verarbeitet einzelne Datenpunkte oder Arrays nacheinander.
-Besitzt einen eingebauten Puffer (History) für vergangene Werte.
-Aktualisiert sich fließend im laufenden Betrieb.
-
-Ideal für Live-Messungen und langsame Prozesse (z. B. Temperatur).
-Zeigt den aktuellen Wert direkt im zeitlichen Verlauf an.
-
-Waveform Graph (Graph) das gesamte Bild bei jedem neuen Datenpaket komplett erneuert.
-Waveform Graph: Benötigt ein kompletter Array oder Block an Messwerten auf einmal.
-Überschreibt die alte Ansicht bei jedem neuen Befehl vollständig.
-Speichert von Haus aus keine Historie alter Datenpakete.
-
-Ideal für m Datensätze, Dateien oder schnelle Signale (z. B. Audio).
-Dient der nachträglichen Analyse eines abgeschlossenen Blocks.
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 import csv

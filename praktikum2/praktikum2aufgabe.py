@@ -71,7 +71,7 @@ def update(frame):
 
     t_end = frame * UPDATE_MS
 
-    # Berechnet N_SAMPLES Zeitstempel mit Abstand UPDATE_MS, endend bei t_end (gleitendes Fenster)
+    # Berechnet N_SAMPLES Zeitstempel mit Abstand UPDATE_MS, endend bei t_end => (Für das gleitende Fenster)
     new_x = list(range(t_end - (N_SAMPLES - 1) * UPDATE_MS, t_end + UPDATE_MS, UPDATE_MS))
 
     line.set_data(new_x, data)
@@ -85,6 +85,7 @@ def update(frame):
 
 ani = FuncAnimation(fig, update, interval=UPDATE_MS,cache_frame_data=False)
 
+# finally, um Sicherzustellen das im Zweifel immer alles korrekt ausgeschaltet wird
 try:
     plt.show()
 finally:

@@ -204,7 +204,6 @@ def update(frame):
     for _ in range(5):
         einzelmessung = ai_task.read()
         rohwerte.append(einzelmessung)
-
     messwerte = np.median(rohwerte, axis=0)
 
     u_druck    = messwerte[0]

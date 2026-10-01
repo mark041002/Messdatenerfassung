@@ -31,12 +31,21 @@ def wav_einlesen(pfad):
     return abtastrate, signal
 
 
-def berechne_spektrum(signal: np.ndarray, abtastrate: float):
+# ----- Frequenzanalyse des überlagerten Signals -----
+def berechne_spektrum(signal, abtastrate):
     n = len(signal)
-    spektrum = np.fft.rfft(signal)
-    frequenzen = np.fft.rfftfreq(n, d=1 / abtastrate)
-    amplitude = np.abs(spektrum) * 2 / n
+
+    # Nutze die Numpy.fft Bibliothek-Funktionen, Dokumentation online angucken
+    spektrum = None  # TODO: ersetzen
+
+    frequenzen = None  # TODO: ersetzen
+
+    # Formel zum normieren der Spektrumswerte
+    # TODO: Was fehlt in dieser Formel noch? (Hat mit rfft zu tun)
+    amplitude = np.abs(spektrum) / n
+
     return frequenzen, amplitude
+
 
 
 def spektrum_exportieren(pfad, frequenzen, amplituden):
